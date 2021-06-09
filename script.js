@@ -158,13 +158,23 @@ const formatCur = function(value , locale , currency){
 const displayMovements = function(acc , sort = false) {
       containerMovements.innerHTML= ''
 
+      const b = [... acc.movements]
+      // console.log(b)
+
       //here we use slice not spread operator to copy bcz we r in the middle of the chain and we need to continue
       const movs = sort ? acc.movements.slice().sort((a , b) => a - b) : acc.movements;
 
+      
+
+     
+
       movs.forEach(function (mov , i ){
       const type = mov > 0 ? 'deposit' : 'withdrawal' ;
+      
+      const c = b.indexOf(mov)
+      
 
-      const date = new Date(acc.movementsDates[i]);
+      const date = new Date(acc.movementsDates[c]);
       const displayDate = formatMovementDate(date , acc.locale)
       
       const formattedMov = formatCur(mov , acc.locale , acc.currency);
@@ -276,7 +286,7 @@ btnLogin.addEventListener('click' , function(e){
     acc => acc.username === inputLoginUsername.value
 
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
     
       if (currentAccount?.pin === +inputLoginPin.value){
          //Display UI and message
